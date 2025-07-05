@@ -1,4 +1,7 @@
 package com.raju.weather.client;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +25,24 @@ public class LocationService {
 	
 	@Value("${openweather.api.key}")
 	private String apiKey;
+	
+	private Map<String,GeoLocation> coordinatesCache = new ConcurrentHashMap<>(); //simple cache for storing the coordinates
 
 	public LocationService(RestClient restClient) {
 		this.restClient = restClient;
 	}
-
+	
+	
 	public GeoLocation getCoordinatesByCity(String city) {
 
 //		String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city
 //				+ "&appid="+ Constants.access_Key;
+		
+		if(coordinatesCache.containsKey(city)) {
+			log.info("Returning coordinates for '{}' from cache.", city);
+			return coordinatesCache.get(city);
+			
+		}
 		
 		String url = geoUrl+"?q="+city+"&appid="+apiKey;
 
@@ -46,6 +58,13 @@ public class LocationService {
 
 			log.info("Latitude:{} ", locations[0].getLat());
 			log.info("Longitude:{} ", locations[0].getLon());
+			
+			log.info("coordinates{}",coordinatesCache);
+			
+			coordinatesCache.put(city, locations[0]);//adding coordinates in the map
+			
+			log.info("Returning coordinates for '{}' from API", city);
+			
 			return locations[0];
 		}
 		}else {

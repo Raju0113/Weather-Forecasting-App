@@ -3,6 +3,7 @@ package com.raju.weather.service.impl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 import com.raju.weather.client.LocationService;
 import com.raju.weather.client.OpenWeatherClient;
@@ -16,14 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class GetCurrentWeatherHelper implements WeatherService {
+public class WeatherServiceImpl implements WeatherService {
 	
 	private LocationService locationService;
 	
 	private OpenWeatherClient openWeatherClient;
 
 
-	GetCurrentWeatherHelper(LocationService locationService , OpenWeatherClient openWeatherClient) { // Constructor injection
+	WeatherServiceImpl(LocationService locationService , OpenWeatherClient openWeatherClient) { // Constructor injection
 		
 		this.locationService = locationService;
 		this.openWeatherClient = openWeatherClient;
@@ -38,7 +39,12 @@ public class GetCurrentWeatherHelper implements WeatherService {
 					       ErrorCodeEnum.INVALID_INPUT.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		
+		StopWatch watch = new StopWatch();  //for testing purpose
+		watch.start();
+		
 		GeoLocation geoLocation = locationService.getCoordinatesByCity(city);
+		watch.stop();
+		log.info("Time taken to fetch coordinates: {} ms", watch.getTotalTimeMillis());
 		
 		 if (geoLocation == null) {
 	            log.warn("No coordinates found for city: {}", city);
