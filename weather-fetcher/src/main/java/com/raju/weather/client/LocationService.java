@@ -58,9 +58,7 @@ public class LocationService {
 
 			log.info("Latitude:{} ", locations[0].getLat());
 			log.info("Longitude:{} ", locations[0].getLon());
-			
-			log.info("coordinates{}",coordinatesCache);
-			
+						
 			coordinatesCache.put(city, locations[0]);//adding coordinates in the map
 			
 			log.info("Returning coordinates for '{}' from API", city);
