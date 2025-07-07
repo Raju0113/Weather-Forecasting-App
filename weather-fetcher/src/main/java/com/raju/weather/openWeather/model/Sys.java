@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Sys {
-	String country;
-    long sunrise;
-    long sunset;
+	private String country;
+	private long sunrise;
+	private long sunset;
 
 }

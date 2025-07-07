@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.raju.weather.openWeather.model.WeatherData;
 import com.raju.weather.service.interfaces.WeatherService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -22,13 +24,17 @@ public class WeatherController {
 	}
 
 	@GetMapping("/current")
-	public ResponseEntity<WeatherData> getCurrentWeather(@RequestParam String city) { // here by using <?> we can return any type of data
-		
+	public ResponseEntity<WeatherData> getCurrentWeather(@RequestParam String city) {
+
 		log.info("WeatherController.getCurrentWeather.City name: {}", city);
 
-		ResponseEntity<WeatherData> weather = weatherService.getWeather(city); // passing coorinates to openweatherclinet to get weather of city
+		ResponseEntity<WeatherData> weather = weatherService.getWeather(city);
+		
+		WeatherData response = weather.getBody();
+		
+		log.info("Weather from weather fetcher service; {}", weather);
 
-		return weather;
+		return ResponseEntity.ok(response);
 
 	}
 }
