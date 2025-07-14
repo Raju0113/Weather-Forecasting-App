@@ -12,13 +12,15 @@ import com.raju.weather.constants.ErrorCodeEnum;
 import com.raju.weather.exception.WeatherServiceException;
 import com.raju.weather.openWeather.model.GeoLocation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class LocationService {
 
-	RestClient restClient;
+	private final RestClient restClient;
 	
 	@Value("${openweather.api.geo-url}")
 	private String geoUrl;
@@ -27,11 +29,6 @@ public class LocationService {
 	private String apiKey;
 	
 	private Map<String,GeoLocation> coordinatesCache = new ConcurrentHashMap<>(); //simple cache for storing the coordinates
-
-	public LocationService(RestClient restClient) {
-		this.restClient = restClient;
-	}
-	
 	
 	public GeoLocation getCoordinatesByCity(String city) {
 

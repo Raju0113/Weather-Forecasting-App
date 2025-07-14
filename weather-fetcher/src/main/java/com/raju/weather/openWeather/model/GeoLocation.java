@@ -7,8 +7,8 @@ import lombok.Data;
 public class GeoLocation {
 	private String name;
 	private Map<String, String> local_names;
-	private double lat;
-	private double lon;
+	private Double lat;
+	private Double lon;
 	private String country;
 	private String state;
 
