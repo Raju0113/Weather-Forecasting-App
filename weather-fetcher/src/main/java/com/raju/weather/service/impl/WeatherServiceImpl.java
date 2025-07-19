@@ -137,11 +137,11 @@ import com.raju.weather.client.LocationService;
 import com.raju.weather.client.OpenWeatherClient;
 import com.raju.weather.constants.ErrorCodeEnum;
 import com.raju.weather.exception.WeatherServiceException;
-import com.raju.weather.openWeather.model.CurrentWeatherResponse;
-import com.raju.weather.openWeather.model.DailyWeatherResponse;
 import com.raju.weather.openWeather.model.GeoLocation;
-import com.raju.weather.openWeather.model.HourlyWeatherResponse;
-import com.raju.weather.openWeather.model.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.current.CurrentWeatherResponse;
+import com.raju.weather.openWeather.model.daily.DailyWeatherResponse;
+import com.raju.weather.openWeather.model.history.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.hourly.HourlyWeatherResponse;
 import com.raju.weather.service.interfaces.WeatherService;
 import com.raju.weather.validation.Validator;
 
@@ -173,14 +173,6 @@ public class WeatherServiceImpl implements WeatherService {
 		watch.stop();
 		log.info("Time taken to fetch coordinates: {} ms", watch.getTotalTimeMillis());
 		
-		 if (geoLocation == null) {
-	            log.warn("No coordinates found for city: {}", city);
-	            
-//	            return ResponseEntity.status(404).body("City not found: " + city);  //instead of returning like this we better to throw excptions
-	            throw new WeatherServiceException(ErrorCodeEnum.CITY_NOT_FOUND.getCode(),
-	            		    ErrorCodeEnum.CITY_NOT_FOUND.getMessage(),
-	            		            HttpStatus.NOT_FOUND);
-	        }
 		 
 		 log.info("Latitude: {} Longitude: {}", geoLocation.getLat(), geoLocation.getLon());
 		 
@@ -196,6 +188,10 @@ public class WeatherServiceImpl implements WeatherService {
 		validator.validCity(city);
 		validator.validStartDate(startDate);
 		validator.validEndDateOrCnt(endDate, cnt);
+		
+		if(endDate!=null) {
+			validator.validStartDateAndEndDate(startDate, endDate);
+		}
 			
 		    Map<String, Long> unixDates= validator.dateToUnix(startDate,endDate);
 		   

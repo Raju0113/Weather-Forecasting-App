@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raju.weather.openWeather.model.CurrentWeatherResponse;
-import com.raju.weather.openWeather.model.DailyWeatherResponse;
-import com.raju.weather.openWeather.model.HourlyWeatherResponse;
-import com.raju.weather.openWeather.model.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.current.CurrentWeatherResponse;
+import com.raju.weather.openWeather.model.daily.DailyWeatherResponse;
+import com.raju.weather.openWeather.model.history.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.hourly.HourlyWeatherResponse;
 import com.raju.weather.service.interfaces.WeatherService;
 
 import lombok.RequiredArgsConstructor;
@@ -60,7 +60,7 @@ public class WeatherController {
 	public ResponseEntity<HourlyWeatherResponse> getWeatherHourly(@RequestParam String city,
 			                       @RequestParam (required=false)Integer count){ 
 		
-		log.info("WeatherController.getWeatherHourly.City name: count: {}", city,count);
+		log.info("WeatherController.getWeatherHourly.City name:{}, count: {}", city,count);
 		
 		ResponseEntity<HourlyWeatherResponse> response =weatherService.getWeatherHourly(city,count);
 		
@@ -77,7 +77,7 @@ public class WeatherController {
 	public ResponseEntity<DailyWeatherResponse> getWeatherDaily(@RequestParam String city,
 			                       @RequestParam (required=false)Integer count){ 
 		
-		log.info("WeatherController.getWeatherHourly.City name: count: {}", city,count);
+		log.info("WeatherController.getWeatherHourly.City name:{} ,count: {}", city,count);
 		
 		ResponseEntity<DailyWeatherResponse> response =weatherService.getWeatherDaily(city,count);
 		

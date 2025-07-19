@@ -22,7 +22,7 @@ public class Validator {
 		}
 	}
 	
-	public void validCount(Integer count) {
+	public void validCount(Integer count) { //Validating count for daily api call
 		
 		if( count <= 0 || count >=17) {
 			throw new WeatherServiceException(ErrorCodeEnum.INVALID_INPUT.getCode(),
@@ -79,5 +79,22 @@ public class Validator {
 		return unixDates;
 		
 	}
+	
+public void validStartDateAndEndDate(String startDate, String endDate) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        LocalDate date1 = LocalDate.parse(startDate, formatter);
+        LocalDate date2 = LocalDate.parse(endDate, formatter);
+
+		     if (date1.isAfter(date2)) {
+		            throw new WeatherServiceException(
+		    		      ErrorCodeEnum.INVALID_INPUT.getCode(),
+		    		      "start Date must be before the end Date",
+		    		      HttpStatus.BAD_REQUEST);
+
+				}
+
+			}
 
 }

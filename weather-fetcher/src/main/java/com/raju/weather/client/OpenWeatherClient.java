@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.raju.weather.openWeather.model.CurrentWeatherResponse;
-import com.raju.weather.openWeather.model.DailyWeatherResponse;
-import com.raju.weather.openWeather.model.HourlyWeatherResponse;
-import com.raju.weather.openWeather.model.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.current.CurrentWeatherResponse;
+import com.raju.weather.openWeather.model.daily.DailyWeatherResponse;
+import com.raju.weather.openWeather.model.history.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.hourly.HourlyWeatherResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -83,12 +83,11 @@ public class OpenWeatherClient {
 		String url = uriBuilder.toUriString();
 		log.info("history url: {}",url);
 
-		        ResponseEntity<WeatherHistoryResponse> response = restClient.get()
+		return restClient.get()
                       .uri(url)
                       .retrieve()
                       .toEntity(WeatherHistoryResponse.class);
 		        
-		        return response;
 			
 	}
 	public ResponseEntity<HourlyWeatherResponse> getWeatherHourlyByCoordinates(double lat, double lon, Integer count) {
@@ -106,12 +105,11 @@ public class OpenWeatherClient {
 		    String url = uriBuilder.toUriString();
 		    log.info("Hourly url: {}",url);
 		    
-		    ResponseEntity<HourlyWeatherResponse> response = restClient.get()
+		    return restClient.get()
                     .uri(url)
                     .retrieve()
                     .toEntity(HourlyWeatherResponse.class);
 		
-		       return response;
 	}
 
 
@@ -129,13 +127,12 @@ public class OpenWeatherClient {
 		String url = uriBuilder.toUriString();
 		log.info("Hourly url: {}", url);
 
-		ResponseEntity<DailyWeatherResponse> response = restClient
+		return restClient
 				.get()
 				.uri(url)
 				.retrieve()
 				.toEntity(DailyWeatherResponse.class);
 
-		return response;
 		
 		
 		

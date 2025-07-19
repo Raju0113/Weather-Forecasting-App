@@ -9,8 +9,8 @@ public enum ErrorCodeEnum {
     GEOLOCATION_API_FAILED("E002","Coordinates not found for the given city"),
     WEATHER_API_FAILED("E003", "Failed to get weather information"),
     INVALID_INPUT("E004", "Invalid input"),
-    INTERNAL_SERVER_ERROR("E999", "Internal server error");
-
+    INTERNAL_SERVER_ERROR("E999", "Internal server error"),
+	SERVICE_UNAVAILABLE("ERR003","Weather service is temporarily unavailable try again:");
     private final String code;
     private final String message;
 

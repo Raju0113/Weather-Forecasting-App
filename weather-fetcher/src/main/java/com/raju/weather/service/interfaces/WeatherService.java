@@ -2,10 +2,10 @@ package com.raju.weather.service.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
-import com.raju.weather.openWeather.model.CurrentWeatherResponse;
-import com.raju.weather.openWeather.model.DailyWeatherResponse;
-import com.raju.weather.openWeather.model.HourlyWeatherResponse;
-import com.raju.weather.openWeather.model.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.current.CurrentWeatherResponse;
+import com.raju.weather.openWeather.model.daily.DailyWeatherResponse;
+import com.raju.weather.openWeather.model.history.WeatherHistoryResponse;
+import com.raju.weather.openWeather.model.hourly.HourlyWeatherResponse;
 
 public interface WeatherService {
 

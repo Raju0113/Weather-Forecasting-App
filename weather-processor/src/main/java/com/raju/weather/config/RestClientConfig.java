@@ -4,6 +4,7 @@
  * */
 package com.raju.weather.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestClient;
 
 @Configuration
 public class RestClientConfig {
+	
 	@Bean
 	public RestClient restClient(RestClient.Builder builder) {
 
@@ -22,5 +24,8 @@ public class RestClientConfig {
 		return builder.requestFactory(factory).build();
 		// return builder.build();
 	}
-}
+
+	}
+
+
 
